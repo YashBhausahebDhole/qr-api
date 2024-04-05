@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Bulk QR Code Generator</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.8.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet@2.2.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose@0.5.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/facemesh@0.16.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@0.1.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier@0.0.2"></script>
+</head>
+<body>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.8.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet@2.2.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose@0.5.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/facemesh@0.16.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@0.1.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier@0.0.2"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.8.2/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet@2.2.2/dist/posenet.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose@0.5.2/dist/handpose.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/facemesh@0.16.2/dist/facemesh.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.1.0/dist/body-pix.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@0.1.1/dist/face-landmarks-detection.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier@0.0.2/dist/knn-classifier.min.js"></script>
+  
+  <div id="root"></div>
+  <script type="module">
+    import { Streamlit } from "streamlit-component-lib"
+    import StreamlitApp from "src/qr.py"
+
+    Streamlit.setComponentReady()
+
+    const app = new StreamlitApp(document.getElementById("root"))
+
+    window.addEventListener("message", event => {
+      const { data } = event
+
+      if (data === "streamlit:askReady") {
+        app.sendReady()
+      } else if (data === "streamlit:setFrameHeight") {
+        const height = document.getElementById("root").scrollHeight
+        window.parent.postMessage({ 
+          type: "streamlit:setFrameHeight", 
+          height 
+        }, "*")
+      }
+    })
+
+    window.parent.postMessage({ type: "streamlit:componentReady" }, "*")
+  </script>
+</body>
+</html>
